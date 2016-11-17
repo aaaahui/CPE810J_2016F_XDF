@@ -1,0 +1,71 @@
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeBitmapFontData;
+import com.badlogic.gdx.graphics.g2d.tiled.TileAtlas;
+import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
+import com.badlogic.gdx.graphics.g2d.tiled.TiledLoader;
+import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
+
+public class Map implements ApplicationListener {
+   private BitmapFont Font;
+
+   private FreeTypeFontGenerator Generator;
+
+   FreeTypeBitmapFontData fontData;
+
+   private SpriteBatch batch;
+
+   @Override
+   public void create() {
+       Generator = new FreeTypeFontGenerator(
+               Gdx.files.internal("data/Baby.TTF"));
+
+       fontData = Generator.generateData(25, Generator.DEFAULT_CHARS
+               + "长的帅人告白才叫，游戏室", false);// type what you want to print no repetition
+
+       Font = new BitmapFont(fontData, fontData.getTextureRegion(), false);
+
+       Font.setColor(Color.RED);
+
+       batch = new SpriteBatch();
+
+   }
+
+   @Override
+   public void dispose() {
+
+   }
+
+   @Override
+   public void render() {
+       Gdx.gl.glClearColor(1, 1, 1, 1);
+       Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+       batch.begin();
+       Font.drawMultiLine(batch,"hello Fighting Potato: \n \n长的帅的人告白才叫告白，\n长的丑的。", 50, 220);
+       Font.draw(batch, "--------Var3D手机工作游戏室", 150, 90);
+
+       batch.end();
+   }
+
+   @Override
+   public void resize(int width, int height) {
+   }
+
+   @Override
+   public void pause() {
+   }
+
+   @Override
+   public void resume() {
+   }
+}
